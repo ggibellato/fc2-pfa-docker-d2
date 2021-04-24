@@ -1,0 +1,11 @@
+docker build -t ggibellato/pfa-docker-d1-mysql .
+
+--restart on-failure 
+docker run --rm --name mysql --network=mynetwork -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=nodedb -v $(pwd)/data:/var/lib/mysql ggibellato/pfa-docker-d1-mysql 
+docker run --rm --name mysql --network=mynetwork -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=nodedb ggibellato/pfa-docker-d1-mysql 
+
+docker exec -it mysql bash -l
+
+docker logs mysql
+
+docker stop mysql

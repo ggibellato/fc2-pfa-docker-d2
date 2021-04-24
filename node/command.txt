@@ -1,0 +1,23 @@
+docker build -t ggibellato/pfa-docker-d1-node .
+
+docker run --rm --name node --network=mynetwork -v $(pwd):/usr/app ggibellato/pfa-docker-d1-node
+
+docker run --rm --name node --network=mynetwork -p 3000:3000 ggibellato/pfa-docker-d1-node
+docker run --rm --name node --network=mynetwork -p 3000:3000 -v $(pwd):/usr/app ggibellato/pfa-docker-d1-node
+
+
+
+docker run --rm --name node --network=mynetwork -p 3000:3000 -v $(pwd):/usr/app -ti ggibellato/pfa-docker-d1-node bash
+
+docker exec -ti pfa-docker-d1 bash
+
+docker exec -ti pfa-docker-d1 bash
+
+======
+
+=======
+Docker
+Fundamentos de Arquitetura de Software
+Comunicacao
+RabaitMQ
+Autenticacao e Keycloak
