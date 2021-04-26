@@ -14,8 +14,10 @@
 ```
 docker network create mynetwork
 
+*voce precisa estar no diretorio do mysql antes de rodar*
 docker run --rm --name mysql --network=mynetwork -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=nodedb -v $(pwd)/data:/var/lib/mysql ggibellato/pfa-docker-d1-mysql 
 
+*voce precisa estar no diretorio do node antes de rodar*
 docker run --rm --name node --network=mynetwork -v $(pwd):/usr/app ggibellato/pfa-docker-d1-node
 
 docker run --rm --name nginx --network=mynetwork -p 8080:80 ggibellato/pfa-docker-d1-nginx

@@ -4,8 +4,9 @@ RUN apk add bash
 
 WORKDIR /usr/app
 
-COPY package* .
-COPY *.js .
+#COPY package* .
+#COPY *.js .
+COPY . .
 
 RUN npm install
 
