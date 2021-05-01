@@ -1,0 +1,43 @@
+version: '3'
+
+services: 
+
+    mysql:
+        image: mysql:5.7
+        environment: 
+            - MYSQL_DATABASE=nodedb
+            - MYSQL_ROOT_PASSWORD=root
+        volumes: 
+            - ./mysql/dbdata:/var/lib/mysql
+            - ./mysql/init:/docker-entrypoint-initdb.d
+        networks: 
+            - dbapp
+    
+    node:
+        image: ggibellato/pfa-docker-d2-node
+        entrypoint: dockerize -wait tcp://mysql:3306 -timeout 60s node index.js
+        networks: 
+            - dbapp
+            - appnginx
+        depends_on: 
+            - mysql
+
+    nginx:
+        image: ggibellato/pfa-docker-d2-nginx
+        entrypoint: dockerize -wait http://node:3000 -timeout 60s /bin/sh -c "nginx -g 'daemon off;'"
+        ports:
+            - 8000:80
+        networks: 
+            - appnginx
+        depends_on: 
+            - node
+
+networks: 
+    dbapp:
+        name: dbapp
+        driver: bridge
+    appnginx:
+        name: appnginx
+        driver: bridge
+
+    
